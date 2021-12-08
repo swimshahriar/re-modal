@@ -14,6 +14,7 @@ const Modal = ({ setIsModalOpen }) => {
 
   return (
     <ModalWrapper>
+      <div className="overlay" onClick={onModalCloseHandler}></div>
       <div className="modal enter">
         <button onClick={onModalCloseHandler}>Close Modal</button>
       </div>

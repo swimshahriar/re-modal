@@ -23,11 +23,8 @@ button:hover {
 }
 
 #modal {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  min-height: 100vh;
-  min-width: 100vw;
-  background: rgb(0, 0, 0, 0.2);
   display: grid;
   place-items: center;
 }
