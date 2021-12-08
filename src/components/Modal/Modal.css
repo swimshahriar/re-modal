@@ -7,3 +7,29 @@
   display: grid;
   place-items: center;
 }
+
+.enter {
+  animation: grow 300ms ease-in;
+}
+
+.exit {
+  animation: shrink 300ms ease-out;
+}
+
+@keyframes grow {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes shrink {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
