@@ -1,0 +1,33 @@
+.App {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+button {
+  font-size: 2rem;
+  padding: 1rem;
+  cursor: pointer;
+
+  background: purple;
+  color: #fff;
+  border: none;
+  border-radius: 1rem;
+  transition: all 300ms ease-in-out;
+}
+
+button:hover {
+  background: #fff;
+  color: purple;
+  border: 2px solid purple;
+}
+
+#modal {
+  position: absolute;
+  inset: 0;
+  min-height: 100vh;
+  min-width: 100vw;
+  background: rgb(0, 0, 0, 0.2);
+  display: grid;
+  place-items: center;
+}
