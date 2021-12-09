@@ -1,25 +1,53 @@
-import ModalWrapper from './ModalWrapper';
+import React, { useEffect, useRef, useState } from 'react';
+import ReactDOM from 'react-dom';
 import './Modal.css';
 
-const Modal = ({ setIsModalOpen }) => {
+const Modal = ({ open, onClose, children }) => {
+  const [isElInserted, setIsElInserted] = useState(false);
+  const modalRef = useRef(document.getElementById('modal'));
+
+  useEffect(() => {
+    if (open && !modalRef.current) {
+      modalRef.current = document.createElement('div');
+      modalRef.current.setAttribute('id', 'modal');
+      document.body.prepend(modalRef.current);
+      setIsElInserted(true);
+    }
+
+    return () => {
+      modalRef.current?.remove();
+      // modalRef.current = null;
+    };
+  }, [open]);
+
   const onModalCloseHandler = () => {
     const modalEl = document.querySelector('.modal');
     modalEl.classList.remove('enter');
     modalEl.classList.add('exit');
 
     setTimeout(() => {
-      setIsModalOpen(false);
+      modalRef.current?.remove();
+      modalRef.current = null;
+      onClose();
+      setIsElInserted(false);
     }, 300);
   };
 
-  return (
-    <ModalWrapper>
-      <div className="overlay" onClick={onModalCloseHandler}></div>
-      <div className="modal enter">
-        <button onClick={onModalCloseHandler}>Close Modal</button>
-      </div>
-    </ModalWrapper>
-  );
+  if (open && modalRef.current && isElInserted) {
+    return ReactDOM.createPortal(
+      <>
+        <div className="overlay" onClick={onModalCloseHandler}></div>
+        <div className="modal enter">
+          <button className="btn-close" onClick={onModalCloseHandler}>
+            Close
+          </button>
+          {children}
+        </div>
+      </>,
+      modalRef.current
+    );
+  }
+  return null;
 };
 
 export default Modal;

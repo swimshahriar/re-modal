@@ -4,7 +4,7 @@
   place-items: center;
 }
 
-button {
+.btn {
   font-size: 2rem;
   padding: 1rem;
   cursor: pointer;
@@ -16,15 +16,8 @@ button {
   transition: all 300ms ease-in-out;
 }
 
-button:hover {
+.btn:hover {
   background: #fff;
   color: purple;
   border: 2px solid purple;
-}
-
-#modal {
-  position: fixed;
-  inset: 0;
-  display: grid;
-  place-items: center;
 }
