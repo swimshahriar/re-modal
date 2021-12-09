@@ -33,7 +33,9 @@ const Modal = ({ open, onClose, children }) => {
     return ReactDOM.createPortal(
       <>
         <div className="overlay" onClick={onModalCloseHandler}></div>
-        <div className="modal-body enter">{children}</div>
+        <div className="modal-body enter">
+          <div className="modal-overflow-container">{children}</div>
+        </div>
       </>,
       modalRef.current
     );
