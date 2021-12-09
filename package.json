@@ -1,6 +1,6 @@
 {
-  "name": "re-modal",
-  "version": "0.1.0",
+  "name": "@swimshahriar/re-modal",
+  "version": "0.1.3",
   "description": "A simple react modal component",
   "author": "S. M. Shahriar",
   "main": "dist/index.js",
@@ -8,6 +8,12 @@
   "files": [
     "dist",
     "README.md"
+  ],
+  "keywords": [
+    "react modal",
+    "react portal",
+    "nested modal",
+    "simple modal"
   ],
   "license": "MIT",
   "repository": {

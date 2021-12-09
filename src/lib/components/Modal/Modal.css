@@ -1,4 +1,4 @@
-#modal {
+.modal {
   position: fixed;
   inset: 0;
   display: grid;
@@ -11,9 +11,10 @@
   background: rgb(0, 0, 0, 0.2);
 }
 
-.modal {
+.modal-body {
   position: absolute;
   width: 30rem;
+  max-width: 90vw;
   height: 90vh;
   background: #fff;
   border-radius: 1rem;
@@ -27,26 +28,6 @@
 
 .exit {
   animation: shrink 300ms ease-out;
-}
-
-.btn-close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-
-  outline: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  background: white;
-  border: 2px solid purple;
-  border-radius: 1rem;
-
-  transition: all 300ms ease-in;
-}
-
-.btn-close:hover {
-  background: purple;
-  color: #fff;
 }
 
 @keyframes grow {

@@ -4,44 +4,36 @@ import './Modal.css';
 
 const Modal = ({ open, onClose, children }) => {
   const [isElInserted, setIsElInserted] = useState(false);
-  const modalRef = useRef(document.getElementById('modal'));
+  const modalRef = useRef(null);
 
   useEffect(() => {
     if (open && !modalRef.current) {
       modalRef.current = document.createElement('div');
-      modalRef.current.setAttribute('id', 'modal');
-      document.body.prepend(modalRef.current);
+      modalRef.current.classList.add('modal');
+      document.body.append(modalRef.current);
       setIsElInserted(true);
     }
 
     return () => {
       modalRef.current?.remove();
+      modalRef.current = null;
+      setIsElInserted(false);
     };
   }, [open]);
 
   const onModalCloseHandler = () => {
-    const modalEl = document.querySelector('.modal');
-    modalEl.classList.remove('enter');
-    modalEl.classList.add('exit');
+    // const modalEl = document.querySelector('.modal');
+    // modalEl.classList.remove('enter');
+    // modalEl.classList.add('exit');
 
-    setTimeout(() => {
-      modalRef.current?.remove();
-      modalRef.current = null;
-      onClose();
-      setIsElInserted(false);
-    }, 300);
+    onClose();
   };
 
   if (open && modalRef.current && isElInserted) {
     return ReactDOM.createPortal(
       <>
         <div className="overlay" onClick={onModalCloseHandler}></div>
-        <div className="modal enter">
-          <button className="btn-close" onClick={onModalCloseHandler}>
-            Close
-          </button>
-          {children}
-        </div>
+        <div className="modal-body enter">{children}</div>
       </>,
       modalRef.current
     );

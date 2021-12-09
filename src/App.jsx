@@ -3,6 +3,7 @@ import { useState } from 'react';
 // internal imports
 import './App.css';
 import Modal from './lib/components/Modal/Modal';
+import Test from './lib/components/Test/Test';
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,6 +24,7 @@ function App() {
 
       <Modal open={isModalOpen} onClose={onCloseHandler}>
         <h2>Hello</h2>
+        <Test />
       </Modal>
     </div>
   );

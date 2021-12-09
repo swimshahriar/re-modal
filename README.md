@@ -1,14 +1,21 @@
+### Features
+
+- Supports Nested modal ✅
+
 ### Installation
 
 ```zsh
-npm i re-modal
+npm i @swimshahriar/re-modal
 # or
-yarn add re-modal
+yarn add @swimshahriar/re-modal
 ```
 
 ### Examples
 
 ```jsx
+import { useState } from 'react';
+import Modal from '@swimshahriar/re-modal'; // default import
+
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -25,8 +32,9 @@ function App() {
       <button className="btn" onClick={onOpenHandler}>
         Open Modal
       </button>
-
+      // takes two props open state and onClose function
       <Modal open={isModalOpen} onClose={onCloseHandler}>
+        // pass anything here
         <h2>Hello</h2>
       </Modal>
     </div>
