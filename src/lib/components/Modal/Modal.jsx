@@ -16,7 +16,6 @@ const Modal = ({ open, onClose, children }) => {
 
     return () => {
       modalRef.current?.remove();
-      // modalRef.current = null;
     };
   }, [open]);
 

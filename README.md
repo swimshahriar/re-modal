@@ -1,9 +1,14 @@
-import { useState } from 'react';
+### Installation
 
-// internal imports
-import './App.css';
-import Modal from './lib/components/Modal/Modal';
+```zsh
+npm i re-modal
+# or
+yarn add re-modal
+```
 
+### Examples
+
+```jsx
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -27,5 +32,4 @@ function App() {
     </div>
   );
 }
-
-export default App;
+```
