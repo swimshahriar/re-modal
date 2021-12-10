@@ -1,6 +1,7 @@
 ### Features
 
 - Supports Nested modal ✅
+- Style object for styling 🖌
 
 ### Installation
 
@@ -27,14 +28,19 @@ function App() {
     setIsModalOpen(false);
   };
 
+  const style = {
+    background: '#000',
+  };
+
   return (
     <div className="App">
       <button className="btn" onClick={onOpenHandler}>
         Open Modal
       </button>
-      // takes two props open state and onClose function
-      <Modal open={isModalOpen} onClose={onCloseHandler}>
-        // pass anything here
+      // open (required) -> boolean state, onClose (required) -> function to close
+      // style (optional) -> object to override the default style
+      <Modal open={isModalOpen} onClose={onCloseHandler} style={style}>
+        // pass anything here as children
         <h2>Hello</h2>
       </Modal>
     </div>
