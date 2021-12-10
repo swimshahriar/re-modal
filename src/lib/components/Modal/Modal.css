@@ -13,17 +13,14 @@
 
 .modal-body {
   position: absolute;
+  min-width: 10rem;
   max-width: 80vw;
-  height: 80vh;
+  min-height: 10rem;
+  max-height: 80vh;
   background: #fff;
   border-radius: 1rem;
   padding: 1rem;
-}
-
-.modal-overflow-container {
-  height: inherit;
-  width: inherit;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 
 .enter {
