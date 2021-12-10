@@ -1,6 +1,6 @@
 {
   "name": "@swimshahriar/re-modal",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "A simple react modal component",
   "author": "S. M. Shahriar",
   "main": "dist/index.js",
