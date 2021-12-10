@@ -1,6 +1,6 @@
 {
   "name": "@swimshahriar/re-modal",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A simple react modal component",
   "author": "S. M. Shahriar",
   "main": "dist/index.js",
@@ -25,12 +25,6 @@
     "build": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files",
     "preview": "vite preview"
   },
-  "peerDependencies": {
-    "@babel/polyfill": "^7.12.1",
-    "prop-types": "^15.7.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
-  },
   "devDependencies": {
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",
@@ -39,5 +33,10 @@
     "@vitejs/plugin-react": "^1.0.7",
     "vite": "^2.7.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
 }

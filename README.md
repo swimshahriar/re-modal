@@ -30,6 +30,7 @@ function App() {
 
   const style = {
     background: '#000',
+    color: '#fff',
   };
 
   return (

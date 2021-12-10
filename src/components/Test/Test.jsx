@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Modal from '../Modal/Modal';
+import Modal from '../../lib/components/Modal/Modal';
 
 function Test() {
   const [isChildOpen, setIsChildOpen] = useState(false);
