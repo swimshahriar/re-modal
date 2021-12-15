@@ -5,6 +5,24 @@
   place-items: center;
 }
 
+.container {
+  position: fixed;
+  inset: 0;
+  width: 7rem;
+  height: 10rem;
+  background: rgb(128, 128, 128, 0.2);
+  overflow: scroll;
+  z-index: 100;
+}
+
+.drag {
+  padding: 1rem;
+  cursor: move;
+  background: black;
+  color: white;
+  z-index: 101;
+}
+
 .overlay {
   position: absolute;
   inset: 0;

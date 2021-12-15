@@ -1,16 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import { useDragging } from '../../../hooks/useDragging';
 import './Modal.css';
 
-const Modal = ({ open, onClose, style = {}, children }) => {
+const Modal = ({ open, onClose, style = {}, draggable = false, children }) => {
   const [isElInserted, setIsElInserted] = useState(false);
   const modalRef = useRef(null);
+  const { parentElRef, dragElRef, setIsElReady } = useDragging();
 
   useEffect(() => {
     if (open && !modalRef.current) {
       modalRef.current = document.createElement('div');
-      modalRef.current.classList.add('modal');
+      if (draggable) {
+        modalRef.current.classList.add('container');
+        parentElRef.current = modalRef.current;
+      } else {
+        modalRef.current.classList.add('modal');
+      }
       document.body.append(modalRef.current);
       setIsElInserted(true);
     }
@@ -22,17 +29,43 @@ const Modal = ({ open, onClose, style = {}, children }) => {
     };
   }, [open]);
 
+  useEffect(() => {
+    if (!isElInserted) {
+      dragElRef.current = null;
+      setIsElReady(false);
+      return;
+    }
+
+    if (!dragElRef.current) {
+      dragElRef.current = document.getElementById('drag');
+      setIsElReady(true);
+    }
+  }, [isElInserted]);
+
   const onModalCloseHandler = () => {
+    setIsElReady(false);
     onClose();
   };
 
   if (open && modalRef.current && isElInserted) {
     return ReactDOM.createPortal(
       <>
-        <div className="overlay" onClick={onModalCloseHandler}></div>
-        <div className="modal-body enter" style={style}>
-          {children}
-        </div>
+        {draggable ? (
+          <>
+            <div id="drag" className="drag">
+              Grab Here
+            </div>
+            <button onClick={onModalCloseHandler}>Close</button>
+            {children}
+          </>
+        ) : (
+          <>
+            <div className="overlay" onClick={onModalCloseHandler}></div>
+            <div className="modal-body enter" style={style}>
+              {children}
+            </div>
+          </>
+        )}
       </>,
       modalRef.current
     );

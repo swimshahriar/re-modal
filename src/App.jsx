@@ -3,12 +3,13 @@ import { useState } from 'react';
 // internal imports
 import './App.css';
 import Modal from './lib/components/Modal/Modal';
-import Test from './components/Test/Test';
+// import Test from './components/Test/Test';
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const onOpenHandler = () => {
+  const onOpenHandler = (e) => {
+    console.log(e);
     setIsModalOpen(true);
   };
 
@@ -25,10 +26,11 @@ function App() {
       <Modal
         open={isModalOpen}
         onClose={onCloseHandler}
-        style={{ background: '#000', color: '#fff' }}
+        // style={{ background: '#000', color: '#fff' }}
+        draggable
       >
         <h2>Hello</h2>
-        <Test />
+        {/* <Test /> */}
       </Modal>
     </div>
   );
