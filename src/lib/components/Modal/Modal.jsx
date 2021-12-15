@@ -9,24 +9,23 @@ const Modal = ({
   onClose,
   style = {},
   draggable = false,
-  clickRef = {
-    left: 0,
-    top: 0,
-  },
+  targetRef,
   children,
 }) => {
   const [isElInserted, setIsElInserted] = useState(false);
   const modalRef = useRef(null);
   const { parentElRef, dragElRef, setIsElReady } = useDragging();
-  const { left, top } = clickRef;
 
   useEffect(() => {
     if (open && !modalRef.current) {
       modalRef.current = document.createElement('div');
       if (draggable) {
+        const { left, top, height } =
+          targetRef?.current?.getBoundingClientRect();
         modalRef.current.classList.add('container');
+        modalRef.current.classList.add('enter');
         modalRef.current.style.left = left + 'px';
-        modalRef.current.style.top = top + 'px';
+        modalRef.current.style.top = top + height + 10 + 'px';
         parentElRef.current = modalRef.current;
       } else {
         modalRef.current.classList.add('modal');
@@ -65,6 +64,7 @@ const Modal = ({
       <>
         {draggable ? (
           <>
+            <div className="overlay" onClick={onModalCloseHandler}></div>
             <div id="drag" className="drag">
               Grab Here
             </div>

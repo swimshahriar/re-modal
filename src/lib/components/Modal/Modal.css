@@ -13,7 +13,6 @@
   background: rgb(128, 128, 128);
   color: white;
   overflow: scroll;
-  z-index: 100;
 }
 
 .drag {
@@ -21,13 +20,13 @@
   cursor: move;
   background: black;
   color: white;
-  z-index: 101;
 }
 
 .overlay {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  background: rgb(0, 0, 0, 0.2);
+  z-index: -1;
+  background: rgb(0, 0, 0, 0.05);
 }
 
 .modal-body {
