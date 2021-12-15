@@ -10,7 +10,8 @@
   inset: 0;
   width: 7rem;
   height: 10rem;
-  background: rgb(128, 128, 128, 0.2);
+  background: rgb(128, 128, 128);
+  color: white;
   overflow: scroll;
   z-index: 100;
 }

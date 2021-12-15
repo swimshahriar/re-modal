@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 // internal imports
 import './App.css';
@@ -7,9 +7,18 @@ import Modal from './lib/components/Modal/Modal';
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const clickRef = useRef({
+    left: 0,
+    top: 0,
+  });
 
   const onOpenHandler = (e) => {
-    console.log(e);
+    const { offsetLeft, offsetTop, offsetHeight } = e.target;
+    // console.log({ offsetLeft, offsetTop, offsetHeight });
+    clickRef.current = {
+      left: offsetLeft,
+      top: offsetTop + offsetHeight + 10,
+    };
     setIsModalOpen(true);
   };
 
@@ -28,6 +37,7 @@ function App() {
         onClose={onCloseHandler}
         // style={{ background: '#000', color: '#fff' }}
         draggable
+        clickRef={clickRef.current}
       >
         <h2>Hello</h2>
         {/* <Test /> */}
