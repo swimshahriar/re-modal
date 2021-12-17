@@ -24,6 +24,7 @@ function App() {
       </button>
 
       <Modal
+        type="dropdown"
         open={isModalOpen}
         onClose={onCloseHandler}
         // style={{ background: '#000', color: '#fff' }}

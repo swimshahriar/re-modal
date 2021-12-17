@@ -5,6 +5,7 @@ import { useDragging } from '../../../hooks/useDragging';
 import './Modal.css';
 
 const Modal = ({
+  type = 'modal',
   open,
   onClose,
   style = {},
@@ -19,14 +20,16 @@ const Modal = ({
   useEffect(() => {
     if (open && !modalRef.current) {
       modalRef.current = document.createElement('div');
-      if (draggable) {
+      if (type === 'dropdown') {
         const { left, top, height } =
           targetRef?.current?.getBoundingClientRect();
         modalRef.current.classList.add('container');
         modalRef.current.classList.add('enter');
         modalRef.current.style.left = left + 'px';
         modalRef.current.style.top = top + height + 10 + 'px';
-        parentElRef.current = modalRef.current;
+        if (draggable) {
+          parentElRef.current = modalRef.current;
+        }
       } else {
         modalRef.current.classList.add('modal');
       }
@@ -42,46 +45,60 @@ const Modal = ({
   }, [open]);
 
   useEffect(() => {
-    if (!isElInserted) {
+    if (!isElInserted && draggable) {
       dragElRef.current = null;
       setIsElReady(false);
       return;
     }
 
-    if (!dragElRef.current) {
+    if (draggable && !dragElRef.current) {
       dragElRef.current = document.getElementById('drag');
       setIsElReady(true);
     }
   }, [isElInserted]);
 
   const onModalCloseHandler = () => {
-    setIsElReady(false);
+    if (draggable) {
+      setIsElReady(false);
+    }
     onClose();
   };
 
-  if (open && modalRef.current && isElInserted) {
-    return ReactDOM.createPortal(
+  let contents;
+  if (type === 'dropdown') {
+    if (draggable) {
+      contents = (
+        <>
+          <div className="overlay" onClick={onModalCloseHandler}></div>
+          <div id="drag" className="drag">
+            Grab Here
+          </div>
+          <button onClick={onModalCloseHandler}>Close</button>
+          {children}
+        </>
+      );
+    } else {
+      contents = (
+        <>
+          <div className="overlay" onClick={onModalCloseHandler}></div>
+          <button onClick={onModalCloseHandler}>Close</button>
+          {children}
+        </>
+      );
+    }
+  } else {
+    contents = (
       <>
-        {draggable ? (
-          <>
-            <div className="overlay" onClick={onModalCloseHandler}></div>
-            <div id="drag" className="drag">
-              Grab Here
-            </div>
-            <button onClick={onModalCloseHandler}>Close</button>
-            {children}
-          </>
-        ) : (
-          <>
-            <div className="overlay" onClick={onModalCloseHandler}></div>
-            <div className="modal-body enter" style={style}>
-              {children}
-            </div>
-          </>
-        )}
-      </>,
-      modalRef.current
+        <div className="overlay" onClick={onModalCloseHandler}></div>
+        <div className="modal-body enter" style={style}>
+          {children}
+        </div>
+      </>
     );
+  }
+
+  if (open && modalRef.current && isElInserted) {
+    return ReactDOM.createPortal(<>{contents}</>, modalRef.current);
   }
   return null;
 };
