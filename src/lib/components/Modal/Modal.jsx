@@ -11,6 +11,7 @@ const Modal = ({
   style = {},
   draggable = false,
   targetRef,
+  isOverlay = false,
   children,
 }) => {
   const [isElInserted, setIsElInserted] = useState(false);
@@ -71,12 +72,20 @@ const Modal = ({
     onClose();
   };
 
+  const overlayStyle = {
+    backgroundColor: isOverlay ? 'rgb(0, 0, 0, 0.05)' : 'transparent',
+  };
+
   let contents;
   if (type === 'dropdown') {
     if (draggable) {
       contents = (
         <>
-          <div className="overlay" onClick={onModalCloseHandler}></div>
+          <div
+            className="overlay"
+            style={overlayStyle}
+            onClick={onModalCloseHandler}
+          ></div>
           <div ref={childWrapperRef} className="dropdown-body enter">
             <div id="drag" className="drag">
               Grab Here
@@ -88,7 +97,11 @@ const Modal = ({
     } else {
       contents = (
         <>
-          <div className="overlay" onClick={onModalCloseHandler}></div>
+          <div
+            className="overlay"
+            style={overlayStyle}
+            onClick={onModalCloseHandler}
+          ></div>
           <div ref={childWrapperRef} className="dropdown-body enter">
             {children}
           </div>
@@ -98,7 +111,7 @@ const Modal = ({
   } else {
     contents = (
       <>
-        <div className="overlay" onClick={onModalCloseHandler}></div>
+        <div className="overlay" style={overlayStyle} onClick={onModalCloseHandler}></div>
         <div className="modal-body enter" style={style}>
           {children}
         </div>

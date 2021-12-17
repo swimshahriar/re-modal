@@ -22,7 +22,7 @@ const NavBar = () => {
         </ul>
       </nav>
 
-      <Modal open={open} onClose={() => setOpen(false)}>
+      <Modal open={open} onClose={() => setOpen(false)} isOverlay>
         Modal
       </Modal>
     </>
