@@ -8,8 +8,11 @@
 .container {
   position: fixed;
   inset: 0;
-  width: 7rem;
-  height: 10rem;
+}
+
+.dropdown-body {
+  position: fixed;
+  padding: 0.5rem;
   background: rgb(128, 128, 128);
   color: white;
   overflow: scroll;

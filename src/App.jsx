@@ -4,6 +4,7 @@ import { useState, useRef } from 'react';
 import './App.css';
 import Modal from './lib/components/Modal/Modal';
 import Test from './components/Test/Test';
+import NavBar from './components/NavBar/NavBar';
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,7 +20,8 @@ function App() {
 
   return (
     <div className="App">
-      <button ref={targetRef} className="btn" onClick={onOpenHandler}>
+      <NavBar />
+      {/* <button ref={targetRef} className="btn" onClick={onOpenHandler}>
         Open Modal
       </button>
 
@@ -33,7 +35,7 @@ function App() {
       >
         <h2>Hello</h2>
         <Test />
-      </Modal>
+      </Modal> */}
     </div>
   );
 }

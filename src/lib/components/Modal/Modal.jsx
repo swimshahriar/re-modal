@@ -15,21 +15,14 @@ const Modal = ({
 }) => {
   const [isElInserted, setIsElInserted] = useState(false);
   const modalRef = useRef(null);
+  const childWrapperRef = useRef(null);
   const { parentElRef, dragElRef, setIsElReady } = useDragging();
 
   useEffect(() => {
     if (open && !modalRef.current) {
       modalRef.current = document.createElement('div');
       if (type === 'dropdown') {
-        const { left, top, height } =
-          targetRef?.current?.getBoundingClientRect();
         modalRef.current.classList.add('container');
-        modalRef.current.classList.add('enter');
-        modalRef.current.style.left = left + 'px';
-        modalRef.current.style.top = top + height + 10 + 'px';
-        if (draggable) {
-          parentElRef.current = modalRef.current;
-        }
       } else {
         modalRef.current.classList.add('modal');
       }
@@ -44,6 +37,8 @@ const Modal = ({
     };
   }, [open]);
 
+  useEffect(() => {}, []);
+
   useEffect(() => {
     if (!isElInserted && draggable) {
       dragElRef.current = null;
@@ -55,9 +50,21 @@ const Modal = ({
       dragElRef.current = document.getElementById('drag');
       setIsElReady(true);
     }
+
+    if (isElInserted && childWrapperRef.current && targetRef.current) {
+      const { left, top, height } = targetRef.current.getBoundingClientRect();
+      childWrapperRef.current.style.left = left + 'px';
+      childWrapperRef.current.style.top = top + height + 10 + 'px';
+
+      if (draggable) {
+        parentElRef.current = childWrapperRef.current;
+      }
+    }
   }, [isElInserted]);
 
-  const onModalCloseHandler = () => {
+  const onModalCloseHandler = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (draggable) {
       setIsElReady(false);
     }
@@ -70,19 +77,21 @@ const Modal = ({
       contents = (
         <>
           <div className="overlay" onClick={onModalCloseHandler}></div>
-          <div id="drag" className="drag">
-            Grab Here
+          <div ref={childWrapperRef} className="dropdown-body enter">
+            <div id="drag" className="drag">
+              Grab Here
+            </div>
+            {children}
           </div>
-          <button onClick={onModalCloseHandler}>Close</button>
-          {children}
         </>
       );
     } else {
       contents = (
         <>
           <div className="overlay" onClick={onModalCloseHandler}></div>
-          <button onClick={onModalCloseHandler}>Close</button>
-          {children}
+          <div ref={childWrapperRef} className="dropdown-body enter">
+            {children}
+          </div>
         </>
       );
     }
