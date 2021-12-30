@@ -1,10 +1,11 @@
 {
   "name": "@swimshahriar/re-modal",
-  "version": "0.3.1",
+  "version": "1.0.0",
   "description": "A simple react modal component",
   "author": "S. M. Shahriar",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "dist/index",
+  "module": "dist/index",
+  "typings": "dist/index",
   "files": [
     "dist",
     "README.md"
