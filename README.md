@@ -1,6 +1,7 @@
 ### Features
 
 - Supports Nested modal ✅
+- Supports draggable dropdown menu ✅
 - Style object for styling 🖌
 
 ### Installation
@@ -13,38 +14,25 @@ yarn add @swimshahriar/re-modal
 
 ### Examples
 
-```jsx
-import { useState } from 'react';
-import Modal from '@swimshahriar/re-modal'; // default import
+Link: [sandbox](https://codesandbox.io/s/swimshahriar-re-modal-cjbfd?file=/src/App.js)
+<br/>
 
-function App() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+<iframe src="https://codesandbox.io/embed/swimshahriar-re-modal-cjbfd?fontsize=14&hidenavigation=1&theme=dark"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="@swimshahriar/re-modal"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
 
-  const onOpenHandler = () => {
-    setIsModalOpen(true);
-  };
+### Props
 
-  const onCloseHandler = () => {
-    setIsModalOpen(false);
-  };
-
-  const style = {
-    background: '#000',
-    color: '#fff',
-  };
-
-  return (
-    <div className="App">
-      <button className="btn" onClick={onOpenHandler}>
-        Open Modal
-      </button>
-      // open (required) -> boolean state, onClose (required) -> function to close
-      // style (optional) -> object to override the default style
-      <Modal open={isModalOpen} onClose={onCloseHandler} style={style}>
-        // pass anything here as children
-        <h2>Hello</h2>
-      </Modal>
-    </div>
-  );
-}
-```
+| Prop          | Type                        | isRequired                     |
+| ------------- | --------------------------- | ------------------------------ |
+| open          | boolean                     | required                       |
+| onClose       | function                    | required                       |
+| type          | string ('modal','dropdown') | optional                       |
+| isOverlay     | boolean                     | optional                       |
+| draggable     | boolean                     | optional                       |
+| targetRef     | useRef Element              | required if type is 'dropdown' |
+| style         | style object                | optional                       |
+| dragAreaStyle | style object                | optional                       |

@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import Modal from '../../lib/components/Modal/Modal';
+import Modal from '../../lib';
 
 const NavItem = ({
   title,
@@ -26,6 +26,8 @@ const NavItem = ({
           overlay={overlay}
           open={open}
           onClose={() => setOpen(false)}
+          style={{ background: 'purple' }}
+          dragAreaStyle={{ background: 'khaki', color: 'purple' }}
         >
           {children}
         </Modal>

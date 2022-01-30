@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Modal from '../../lib/components/Modal/Modal';
+import Modal from '../../lib';
 import './navbar.css';
 import NavItem from './NavItem';
 
@@ -22,7 +22,12 @@ const NavBar = () => {
         </ul>
       </nav>
 
-      <Modal open={open} onClose={() => setOpen(false)} isOverlay>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        isOverlay
+        style={{ background: 'khaki' }}
+      >
         Modal
       </Modal>
     </>

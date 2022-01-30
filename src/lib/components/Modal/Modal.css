@@ -15,7 +15,7 @@
   padding: 0.5rem;
   background: rgb(128, 128, 128);
   color: white;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .drag {
@@ -40,7 +40,7 @@
   background: #fff;
   border-radius: 1rem;
   padding: 1rem;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .enter {

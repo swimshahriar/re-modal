@@ -1,7 +1,7 @@
 {
   "name": "@swimshahriar/re-modal",
-  "version": "1.0.0",
-  "description": "A simple react modal component",
+  "version": "1.2.0",
+  "description": "A simple react modal, dropdown component",
   "author": "S. M. Shahriar",
   "main": "dist/index",
   "module": "dist/index",

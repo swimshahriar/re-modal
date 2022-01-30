@@ -1,14 +1,83 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { useDragging } from '../../../hooks/useDragging';
 import './Modal.css';
+
+export const useDragging = () => {
+  const [isDragging, setIsDragging] = useState(false);
+  const [isElReady, setIsElReady] = useState(false);
+
+  const dragPosRef = useRef({ x: 0, y: 0 });
+  const dragElRef = useRef(null);
+  const parentElRef = useRef(null);
+
+  const onMouseMove = useCallback(
+    (e) => {
+      if (!isDragging) return;
+      e.stopPropagation();
+      e.preventDefault();
+
+      if (parentElRef.current) {
+        const { x, y } = dragPosRef.current;
+        parentElRef.current.style.left = `${
+          parentElRef.current.offsetLeft - (x - e.x)
+        }px`;
+        parentElRef.current.style.top = `${
+          parentElRef.current.offsetTop - (y - e.y)
+        }px`;
+
+        dragPosRef.current = { x: e.x, y: e.y };
+      }
+    },
+    [isDragging]
+  );
+
+  const onMouseUp = (e) => {
+    setIsDragging(false);
+    e.stopPropagation();
+    e.preventDefault();
+  };
+
+  const onMouseDown = (e) => {
+    setIsDragging(true);
+    e.stopPropagation();
+    e.preventDefault();
+
+    dragPosRef.current = { x: e.x, y: e.y };
+  };
+
+  // When the element mounts, attach an mousedown listener
+  useEffect(() => {
+    if (isElReady) {
+      dragElRef.current.addEventListener('mousedown', onMouseDown);
+    }
+  }, [isElReady]);
+
+  // Everytime the isDragging state changes, assign or remove
+  // the corresponding mousemove and mouseup handlers
+  useEffect(() => {
+    if (isDragging) {
+      document.addEventListener('mouseup', onMouseUp);
+      document.addEventListener('mousemove', onMouseMove);
+    } else {
+      document.removeEventListener('mouseup', onMouseUp);
+      document.removeEventListener('mousemove', onMouseMove);
+    }
+    return () => {
+      document.removeEventListener('mouseup', onMouseUp);
+      document.removeEventListener('mousemove', onMouseMove);
+    };
+  }, [isDragging, onMouseMove]);
+
+  return { dragElRef, parentElRef, setIsElReady, isDragging };
+};
 
 const Modal = ({
   type = 'modal',
   open,
   onClose,
   style = {},
+  dragAreaStyle = {},
   draggable = false,
   targetRef,
   isOverlay = false,
@@ -86,8 +155,12 @@ const Modal = ({
             style={overlayStyle}
             onClick={onModalCloseHandler}
           ></div>
-          <div ref={childWrapperRef} className="dropdown-body enter">
-            <div id="drag" className="drag">
+          <div
+            ref={childWrapperRef}
+            className="dropdown-body enter"
+            style={style}
+          >
+            <div id="drag" className="drag" style={dragAreaStyle}>
               Grab Here
             </div>
             {children}
@@ -102,7 +175,11 @@ const Modal = ({
             style={overlayStyle}
             onClick={onModalCloseHandler}
           ></div>
-          <div ref={childWrapperRef} className="dropdown-body enter">
+          <div
+            ref={childWrapperRef}
+            className="dropdown-body enter"
+            style={style}
+          >
             {children}
           </div>
         </>
@@ -111,7 +188,11 @@ const Modal = ({
   } else {
     contents = (
       <>
-        <div className="overlay" style={overlayStyle} onClick={onModalCloseHandler}></div>
+        <div
+          className="overlay"
+          style={overlayStyle}
+          onClick={onModalCloseHandler}
+        ></div>
         <div className="modal-body enter" style={style}>
           {children}
         </div>
@@ -129,6 +210,15 @@ Modal.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   style: PropTypes.object,
+  dragAreaStyle: PropTypes.object,
+  type: PropTypes.string,
+  draggable: PropTypes.bool,
+  isOverlay: PropTypes.bool,
+  targetRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+    null,
+  ]),
 };
 
 export default Modal;
